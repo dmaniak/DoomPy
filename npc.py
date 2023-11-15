@@ -1,4 +1,7 @@
-from sprite_object import *
+import math
+import pygame as pg
+from settings import Config
+from sprite_object import AnimatedSprite
 from random import randint, random
 
 
@@ -70,7 +73,7 @@ class NPC(AnimatedSprite):
 
     def check_hit_in_npc(self):
         if self.ray_cast_value and self.game.player.shot:
-            if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
+            if Config.HALF_WIDTH - self.sprite_half_width < self.screen_x < Config.HALF_WIDTH + self.sprite_half_width:
                 self.game.sound.npc_pain.play()
                 self.game.player.shot = False
                 self.pain = True
@@ -137,7 +140,7 @@ class NPC(AnimatedSprite):
         delta_depth = dy / sin_a
         dx = delta_depth * cos_a
 
-        for i in range(MAX_DEPTH):
+        for i in range(Config.MAX_DEPTH):
             tile_hor = int(x_hor), int(y_hor)
             if tile_hor == self.map_pos:
                 player_dist_h = depth_hor
@@ -158,7 +161,7 @@ class NPC(AnimatedSprite):
         delta_depth = dx / cos_a
         dy = delta_depth * sin_a
 
-        for i in range(MAX_DEPTH):
+        for i in range(Config.MAX_DEPTH):
             tile_vert = int(x_vert), int(y_vert)
             if tile_vert == self.map_pos:
                 player_dist_v = depth_vert
@@ -189,6 +192,7 @@ class SoldierNPC(NPC):
                  scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
 
+
 class CacoDemonNPC(NPC):
     def __init__(self, game, path='resources/sprites/npc/caco_demon/0.png', pos=(10.5, 6.5),
                  scale=0.7, shift=0.27, animation_time=250):
@@ -198,6 +202,7 @@ class CacoDemonNPC(NPC):
         self.attack_damage = 25
         self.speed = 0.05
         self.accuracy = 0.35
+
 
 class CyberDemonNPC(NPC):
     def __init__(self, game, path='resources/sprites/npc/cyber_demon/0.png', pos=(11.5, 6.0),

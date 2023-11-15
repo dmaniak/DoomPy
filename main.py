@@ -1,6 +1,6 @@
 import pygame as pg
 import sys
-from settings import RES, FPS
+from settings import Config
 from map import Map
 from player import Player
 from raycasting import RayCasting
@@ -15,8 +15,8 @@ from pathfinding import PathFinding
 class Game:
     def __init__(self):
         pg.init()
-        # pg.mouse.set_visible(False)
-        self.screen = pg.display.set_mode(RES)
+        pg.mouse.set_visible(False)
+        self.screen = pg.display.set_mode(Config.RES)
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -42,7 +42,7 @@ class Game:
         self.object_handler.update()
         self.weapon.update()
         pg.display.flip()
-        self.delta_time = self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(Config.FPS)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
