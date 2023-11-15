@@ -14,4 +14,4 @@ class Sound:
         self.npc_shot.set_volume(Config.VOLUME)
         self.player_pain = pg.mixer.Sound(self.path + 'player_pain.wav')
         self.theme = pg.mixer.music.load(self.path + 'theme.mp3')
-        pg.mixer.music.set_volume(0.3)
+        pg.mixer.music.set_volume(Config.MUSIC_VOLUME)

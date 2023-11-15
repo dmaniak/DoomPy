@@ -37,3 +37,4 @@ class Config:
     HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
 
     VOLUME = 0.1
+    MUSIC_VOLUME = 0.1
