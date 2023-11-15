@@ -1,21 +1,21 @@
 import pygame as pg
 import sys
-from settings import *
-from map import *
-from player import *
-from raycasting import *
-from object_renderer import *
-from sprite_object import *
-from object_handler import *
-from weapon import *
-from sound import *
-from pathfinding import *
+from settings import RES, FPS
+from map import Map
+from player import Player
+from raycasting import RayCasting
+from object_renderer import ObjectRenderer
+from sprite_object import SpriteObject
+from object_handler import ObjectHandler
+from weapon import Weapon
+from sound import Sound
+from pathfinding import PathFinding
 
 
 class Game:
     def __init__(self):
         pg.init()
-        pg.mouse.set_visible(False)
+        # pg.mouse.set_visible(False)
         self.screen = pg.display.set_mode(RES)
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()

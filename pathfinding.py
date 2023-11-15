@@ -3,7 +3,7 @@ from functools import lru_cache
 
 
 class PathFinding:
-    def __init__(self, game):
+    def __init__(self, game ):
         self.game = game
         self.map = game.map.mini_map
         self.ways = [-1, 0], [0, -1], [1, 0], [0, 1], [-1, -1], [1, -1], [1, 1], [-1, 1]
