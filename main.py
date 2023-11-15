@@ -55,9 +55,12 @@ class Game:
     def check_events(self):
         self.global_trigger = False
         for event in pg.event.get():
-            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+            if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                print("todo")
+                self.sound.pause()
             elif event.type == self.global_event:
                 self.global_trigger = True
             self.player.single_fire_event(event)
