@@ -1,6 +1,6 @@
 import pygame as pg
 import sys
-from settings import RES, FPS
+from settings import HEIGHT, RES, FPS, WIDTH
 from map import Map
 from player import Player
 from raycasting import RayCasting
@@ -23,6 +23,7 @@ class Game:
         self.global_trigger = False
         self.global_event = pg.USEREVENT + 0
         pg.time.set_timer(self.global_event, 40)
+        self.is_running = True
         self.new_game()
 
     def new_game(self):
@@ -60,6 +61,8 @@ class Game:
                 sys.exit()
             elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 print("todo")
+                self.is_running = not self.is_running
+                pg.draw.rect(self.screen, 'black', (0, 0, WIDTH/2, HEIGHT/2))
                 self.sound.pause()
             elif event.type == self.global_event:
                 self.global_trigger = True
@@ -67,6 +70,8 @@ class Game:
 
     def run(self):
         while True:
+            if(self.is_running == False):
+                continue
             self.check_events()
             self.update()
             self.draw()
