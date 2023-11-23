@@ -1,22 +1,24 @@
 import pygame as pg
 import sys
-from settings import Config
-from map import Map
-from player import Player
-from raycasting import RayCasting
-from object_renderer import ObjectRenderer
-from sprite_object import SpriteObject
-from object_handler import ObjectHandler
-from weapon import Weapon
-from sound import Sound
-from pathfinding import PathFinding
+from pathlib import Path
+sys.path.append(Path(__file__).parents[1].joinpath("lib").as_posix())
+
+from doompy.settings import config
+from doompy.map import Map
+from doompy.player import Player
+from doompy.raycasting import RayCasting
+from doompy.object_renderer import ObjectRenderer
+from doompy.object_handler import ObjectHandler
+from doompy.weapon import Weapon
+from doompy.sound import Sound
+from doompy.pathfinding import PathFinding
 
 
 class Game:
     def __init__(self):
         pg.init()
         pg.mouse.set_visible(False)
-        self.screen = pg.display.set_mode(Config.RES)
+        self.screen = pg.display.set_mode(config.RES)
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -42,7 +44,7 @@ class Game:
         self.object_handler.update()
         self.weapon.update()
         pg.display.flip()
-        self.delta_time = self.clock.tick(Config.FPS)
+        self.delta_time = self.clock.tick(config.FPS)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
