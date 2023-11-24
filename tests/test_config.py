@@ -25,6 +25,13 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(inst1.TEXTURE_SIZE, 256)
         self.assertEqual(inst1.HALF_TEXTURE_SIZE, 128)
 
+    def test_read_resources(self):
+        inst1 = Config()
+        texture = inst1.resource_root.joinpath("textures/1.png")
+        self.assertTrue(texture.exists())
+
+        self.assertTrue(texture.is_file())
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
