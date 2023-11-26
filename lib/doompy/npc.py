@@ -1,16 +1,19 @@
-from sprite_object import *
+import math
+import pygame as pg
+from doompy.settings import config
+from doompy.sprite_object import AnimatedSprite
 from random import randint, random
 
 
 class NPC(AnimatedSprite):
-    def __init__(self, game, path='resources/sprites/npc/soldier/0.png', pos=(10.5, 5.5),
+    def __init__(self, game, path=config.resource_root.joinpath('sprites/npc/soldier/0.png'), pos=(10.5, 5.5),
                  scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
-        self.attack_images = self.get_images(self.path + '/attack')
-        self.death_images = self.get_images(self.path + '/death')
-        self.idle_images = self.get_images(self.path + '/idle')
-        self.pain_images = self.get_images(self.path + '/pain')
-        self.walk_images = self.get_images(self.path + '/walk')
+        self.attack_images = self.get_images(self.path.joinpath('attack'))
+        self.death_images = self.get_images(self.path.joinpath('death'))
+        self.idle_images = self.get_images(self.path.joinpath('idle'))
+        self.pain_images = self.get_images(self.path.joinpath('pain'))
+        self.walk_images = self.get_images(self.path.joinpath('walk'))
 
         self.attack_dist = randint(3, 6)
         self.speed = 0.03
@@ -70,7 +73,7 @@ class NPC(AnimatedSprite):
 
     def check_hit_in_npc(self):
         if self.ray_cast_value and self.game.player.shot:
-            if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
+            if config.HALF_WIDTH - self.sprite_half_width < self.screen_x < config.HALF_WIDTH + self.sprite_half_width:
                 self.game.sound.npc_pain.play()
                 self.game.player.shot = False
                 self.pain = True
@@ -137,7 +140,7 @@ class NPC(AnimatedSprite):
         delta_depth = dy / sin_a
         dx = delta_depth * cos_a
 
-        for i in range(MAX_DEPTH):
+        for i in range(config.MAX_DEPTH):
             tile_hor = int(x_hor), int(y_hor)
             if tile_hor == self.map_pos:
                 player_dist_h = depth_hor
@@ -158,7 +161,7 @@ class NPC(AnimatedSprite):
         delta_depth = dx / cos_a
         dy = delta_depth * sin_a
 
-        for i in range(MAX_DEPTH):
+        for i in range(config.MAX_DEPTH):
             tile_vert = int(x_vert), int(y_vert)
             if tile_vert == self.map_pos:
                 player_dist_v = depth_vert
@@ -185,12 +188,13 @@ class NPC(AnimatedSprite):
 
 
 class SoldierNPC(NPC):
-    def __init__(self, game, path='resources/sprites/npc/soldier/0.png', pos=(10.5, 5.5),
+    def __init__(self, game, path=config.resource_root.joinpath('sprites/npc/soldier/0.png'), pos=(10.5, 5.5),
                  scale=0.6, shift=0.38, animation_time=180):
         super().__init__(game, path, pos, scale, shift, animation_time)
 
+
 class CacoDemonNPC(NPC):
-    def __init__(self, game, path='resources/sprites/npc/caco_demon/0.png', pos=(10.5, 6.5),
+    def __init__(self, game, path=config.resource_root.joinpath('sprites/npc/caco_demon/0.png'), pos=(10.5, 6.5),
                  scale=0.7, shift=0.27, animation_time=250):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.attack_dist = 1.0
@@ -199,8 +203,9 @@ class CacoDemonNPC(NPC):
         self.speed = 0.05
         self.accuracy = 0.35
 
+
 class CyberDemonNPC(NPC):
-    def __init__(self, game, path='resources/sprites/npc/cyber_demon/0.png', pos=(11.5, 6.0),
+    def __init__(self, game, path=config.resource_root.joinpath('sprites/npc/cyber_demon/0.png'), pos=(11.5, 6.0),
                  scale=1.0, shift=0.04, animation_time=210):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.attack_dist = 6
